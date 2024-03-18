@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     brush.cpp \
     circle.cpp \
+    ellipse.cpp \
     figure.cpp \
     hexagon.cpp \
     line.cpp \
@@ -20,14 +21,12 @@ SOURCES += \
     rhombus.cpp \
     square.cpp \
     star.cpp \
-    star_5.cpp \
-    star_6.cpp \
-    star_8.cpp \
     triangle.cpp
 
 HEADERS += \
     brush.h \
     circle.h \
+    ellipse.h \
     figure.h \
     hexagon.h \
     line.h \
@@ -36,9 +35,6 @@ HEADERS += \
     rhombus.h \
     square.h \
     star.h \
-    star_5.h \
-    star_6.h \
-    star_8.h \
     triangle.h
 
 FORMS += \

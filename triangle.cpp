@@ -20,30 +20,10 @@ void Triangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     draw(painter);
 }
 
-
-// double Square() const override {
-//     // Используем формулу Герона для расчета площади треугольника
-//     double a = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-//     double b = sqrt(pow(x3 - x2, 2) + pow(y3 - y2, 2));
-//     double c = sqrt(pow(x1 - x3, 2) + pow(y1 - y3, 2));
-//     double s = (a + b + c) / 2;
-
-//     return sqrt(s * (s - a) * (s - b) * (s - c));
-// }
-
-// double Perimeter() const override {
-//     // Суммируем длины всех сторон треугольника
-//     double a = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
-//     double b = sqrt(pow(x3 - x2, 2) + pow(y3 - y2, 2));
-//     double c = sqrt(pow(x1 - x3, 2) + pow(y1 - y3, 2));
-
-//     return a + b + c;
-// }
-
-// std::pair<double, double> CenterOfMass() const override {
-//     // Центр масс треугольника - это среднее арифметическое координат его вершин
-//     double centerX = (x1 + x2 + x3) / 3;
-//     double centerY = (y1 + y2 + y3) / 3;
-
-//     return {centerX, centerY};
-// }
+void Triangle::findSquare(){
+    S = 0.5 * qAbs(mouseX * mouseY);
+}
+void Triangle::findPerimetr(){
+    double a = qSqrt((mouseX / 2) * (mouseX / 2) + mouseY*mouseY);
+    P = qAbs(mouseX) + 2 * a;
+}

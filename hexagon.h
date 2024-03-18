@@ -5,10 +5,13 @@
 
 class Hexagon : public Figure{
 public:
-    explicit Hexagon(Figure *parent = nullptr);
+    Hexagon(Figure *parent = nullptr);
 
     void draw(QPainter *painter) override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) ;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    void findSquare() override;
+    void findPerimetr() override;
 };
 
 #endif // HEXAGON_H

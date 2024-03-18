@@ -25,3 +25,16 @@ void Star::draw(QPainter *painter){
 void Star::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     draw(painter);
 }
+
+void Star::findSquare() {
+    int radios = qMax(mouseX, mouseY);
+    double sideLength = 2 * radios * sin(M_PI / size);
+    double apothem = radios * cos(M_PI / size);  // Апофема
+    S = qAbs(size * sideLength * apothem) / 2;
+}
+
+void Star::findPerimetr() {
+    int radios = qMax(mouseX, mouseY);
+    double sideLength = 2 * radios * sin(M_PI / size);
+    P = qAbs(sideLength * size) * 2;
+}

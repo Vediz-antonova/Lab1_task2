@@ -1,15 +1,11 @@
 #include "figure.h"
+#include <iostream>
 #include <QPainter>
 #include <QPolygon>
 
-Figure::Figure(QGraphicsItem *parent) : QGraphicsItem(parent) {
+Figure::Figure(QGraphicsItem *parent2) : QGraphicsItem(parent2) {
     setCenter = false;
-}
-
-void Figure::move(int dx, int dy) {
-    int newX = centerX + dx, newY = centerY + dy;
-
-    //update();
+    setFlag(QGraphicsItem::ItemIsFocusable, true);
 }
 
 void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
@@ -17,6 +13,9 @@ void Figure::mousePressEvent(QGraphicsSceneMouseEvent *event){
         centerX = event->scenePos().x();
         centerY = event->scenePos().y();
         setCenter = true;
+    }
+    else {
+        setTransformOriginPoint(event->pos());
     }
 }
 
@@ -29,27 +28,25 @@ void Figure::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
 
 void Figure::keyPressEvent(QKeyEvent *event) {
     int step = 10;
-    int newX = centerX, newY = centerY;
     switch (event->key()){
     case Qt::Key_Left:
-        newX -= step;
+        this->moveBy(-step, 0);
         break;
     case Qt::Key_Right:
-        newX += step;
+        this->moveBy(step, 0);
         break;
     case Qt::Key_Up:
-        newY -= step;
+        this->moveBy(0, -step);
         break;
     case Qt::Key_Down:
-        newY += step;
+        this->moveBy(0, step);
+        break;
+    case Qt::Key_R:
+        rotate(10);
         break;
     }
+}
 
-    // if(newX - r >= 0 && newX + r <= width() && newY - r >= 0 &&
-    //     newY + r <= height()){
-        centerX = newX;
-        centerY = newY;
-    // }
-
-    update();
+void Figure::rotate(double angle) {
+    setRotation(rotation() + angle);
 }

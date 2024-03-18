@@ -15,3 +15,13 @@ void Circle::draw(QPainter *painter){
 void Circle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     draw(painter);
 }
+
+void Circle::findSquare(){
+    int r = qMax(mouseX, mouseY);
+    S = 3.141592 * r * r;
+}
+
+void Circle::findPerimetr(){
+    int r = qMax(mouseX, mouseY);
+    P = 2 * 3.141592 * qAbs(r);
+}

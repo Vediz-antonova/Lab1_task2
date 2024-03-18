@@ -5,6 +5,8 @@ Brush::Brush(Figure *parent) : Figure(parent){\
     centerY = 0;
     mouseX = 0;
     mouseY = 0;
+    S = 0;
+    P = 0;
 }
 
 void Brush::draw(QPainter *painter){
@@ -23,4 +25,10 @@ void Brush::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
 void Brush::mousePressEvent(QGraphicsSceneMouseEvent *event){
     path.moveTo(event->scenePos());
     update();
+}
+
+void Brush::findSquare(){
+}
+
+void Brush::findPerimetr(){
 }

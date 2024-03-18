@@ -19,3 +19,12 @@ void Rhombus::draw(QPainter *painter){
 void Rhombus::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     draw(painter);
 }
+
+void Rhombus::findSquare(){
+    S = qAbs(mouseX * mouseY) / 2;
+}
+
+void Rhombus::findPerimetr(){
+    int length = qSqrt((mouseX / 2) * (mouseX / 2) + (mouseY / 2) * (mouseY / 2));
+    P = 4 * length;
+}

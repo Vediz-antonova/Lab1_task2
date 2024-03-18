@@ -24,3 +24,12 @@ void Hexagon::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     draw(painter);
 }
 
+void Hexagon::findSquare(){
+    int sideLength = qMax(mouseX, mouseY);
+    S = 3 * qSqrt(3) / 2 * sideLength * sideLength;
+}
+
+void Hexagon::findPerimetr(){
+    int sideLength = qMax(mouseX, mouseY);
+    P = 6 * qAbs(sideLength);
+}

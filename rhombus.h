@@ -5,10 +5,13 @@
 
 class Rhombus : public Figure{
 public:
-    explicit Rhombus(Figure *parent = nullptr);
+    Rhombus(Figure *parent = nullptr);
 
     void draw(QPainter *painter) override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    void findSquare() override;
+    void findPerimetr() override;
 };
 
 #endif // RHOMBUS_H

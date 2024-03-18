@@ -1,11 +1,12 @@
-#ifndef CIRCLE_H
-#define CIRCLE_H
+#ifndef ELLIPSE_H
+#define ELLIPSE_H
 
 #include "figure.h"
 
-class Circle : public Figure{
+class Ellipse : public Figure
+{
 public:
-    Circle(Figure *parent = nullptr);
+    Ellipse(Figure *parent = nullptr);
 
     void draw(QPainter *painter) override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) ;
@@ -14,4 +15,4 @@ public:
     void findPerimetr() override;
 };
 
-#endif // CIRCLE_H
+#endif // ELLIPSE_H

@@ -1,11 +1,6 @@
 #include "rectangle.h"
 
-Rectangle::Rectangle(Figure *parent) : Figure(parent){
-    centerX = 0;
-    centerY = 0;
-    mouseX = 0;
-    mouseY = 0;
-}
+Rectangle::Rectangle(Figure *parent) : Figure(parent){}
 
 void Rectangle::draw(QPainter *painter){
     QPolygon polygon;
@@ -18,4 +13,12 @@ void Rectangle::draw(QPainter *painter){
 
 void Rectangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     draw(painter);
+}
+
+void Rectangle::findSquare(){
+    S = qAbs(mouseX * mouseY);
+}
+
+void Rectangle::findPerimetr(){
+    P = 2 * qAbs(mouseX + mouseY);
 }

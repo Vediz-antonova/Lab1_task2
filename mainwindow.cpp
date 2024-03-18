@@ -9,33 +9,31 @@
 #include <rectangle.h>
 #include <rhombus.h>
 #include <hexagon.h>
-#include <star_5.h>
-#include <star_6.h>
-#include <star_8.h>
 #include <star.h>
+#include <ellipse.h>
 
 #include <QGraphicsProxyWidget>
 #include <QGraphicsSceneMouseEvent>
+#include <QMouseEvent>
 #include <QMessageBox>
 #include <QGraphicsView>
+#include <QLabel>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow){
     ui->setupUi(this);
 
-
-    // QVBoxLayout *layout = new QVBoxLayout;
-    // layout->addWidget(label);
-    // this->setLayout(layout);
-    // ui->statusbar->addWidget(label);
+    label = new QLabel(this);
+    ui->statusbar->addWidget(label);
+    label->setText("To rotate, select a point and press R.          Use the arrows to move");
 
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
 
-    // label = new QLabel(this);
-    // QGraphicsProxyWidget *proxy = scene->addWidget(label);
-    // proxy->setPos(0, 25);
+    timer = new QTimer(this);
+    timer->start(200);
 }
 
 MainWindow::~MainWindow()
@@ -43,14 +41,42 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// void MainWindow::mouseMoveEvent(QMouseEvent *event){
-//     ui->labelX->setText("X: " + QString::number(event->x())/* + "; Y: " + QString::number(event->y())*/);
-//     QMainWindow::mouseMoveEvent(event);
-// }
-// void MainWindow::mouseMoveEvent(QMouseEvent *event){
-//     ui->labelX->setText("X: " + QString::number(event->pos().x()));
-//     QMainWindow::mouseMoveEvent(event);
-// }
+void MainWindow::updateAreaDisplay(QString newArea) {
+    ui->Square->setText("S: " + newArea);
+}
+
+void MainWindow::updatePerimetrDisplay(QString newP) {
+    ui->Perimetr->setText("P: " + newP);
+}
+
+void MainWindow::updateCenterDisplay(QString newX, QString newY) {
+    ui->CenterX->setText("CenterX: " + newX);
+    ui->CenterY->setText("CenterY: " + newY);
+}
+
+void MainWindow::infoFigure(Figure* figure){
+    static double oldS = figure->S;
+    static double oldP = figure->P;
+    static int oldX = figure->centerX;
+    static int oldY = figure->centerY;
+    connect(timer, &QTimer::timeout, [this, figure]{
+        figure->findSquare();
+        figure->findPerimetr();
+        if (figure->S != oldS) {
+            MainWindow::updateAreaDisplay(QString::number(figure->S));
+            oldS = figure->S;
+        }
+        if (figure->P != oldP) {
+            MainWindow::updatePerimetrDisplay(QString::number(figure->P));
+            oldP = figure->P;
+        }
+        if (figure->centerX != oldX || figure->centerY != oldY) {
+            MainWindow::updateCenterDisplay(QString::number(figure->centerX), QString::number(figure->centerY));
+            oldX = figure->centerX;
+            oldY = figure->centerY;
+        }
+    });
+}
 
 void MainWindow::on_StarButton_clicked(){
     QMessageBox message;
@@ -62,31 +88,36 @@ void MainWindow::on_StarButton_clicked(){
 
     message.exec();
 
+    Star * st;
+
     if(message.clickedButton() == button1){
-        Star *st5 = new Star(5);
-        scene->addItem(st5);
+        st = new Star(5);
     } else if(message.clickedButton() == button2){
-        Star *st6 = new Star(6);
-        scene->addItem(st6);
+        st = new Star(6);
     } else if(message.clickedButton() == button3){
-        Star *st8 = new Star(8);
-        scene->addItem(st8);
+        st = new Star(8);
     }
+    scene->addItem(st);
+
+    infoFigure(st);
 }
 
 void MainWindow::on_TriangleButton_clicked(){
     Triangle *tr = new Triangle();
     scene->addItem(tr);
+    infoFigure(tr);
 }
 
 void MainWindow::on_CircleButton_clicked(){
     Circle *cr = new Circle();
     scene->addItem(cr);
+    infoFigure(cr);
 }
 
 void MainWindow::on_LineButton_clicked(){
     Line *ln = new Line();
     scene->addItem(ln);
+    infoFigure(ln);
 }
 
 void MainWindow::on_ClearButton_clicked(){
@@ -94,27 +125,38 @@ void MainWindow::on_ClearButton_clicked(){
 }
 
 void MainWindow::on_BrushButton_clicked(){
+    scene->clear();
     Brush *br = new Brush();
     scene->addItem(br);
+    infoFigure(br);
 }
 
 void MainWindow::on_SquareButton_clicked(){
     Square *sq = new Square();
     scene->addItem(sq);
+    infoFigure(sq);
 }
 
 void MainWindow::on_RectangleButton_clicked(){
     Rectangle *rec = new Rectangle();
     scene->addItem(rec);
+    infoFigure(rec);
 }
 
 void MainWindow::on_RhombusButton_clicked(){
     Rhombus *rh = new Rhombus();
     scene->addItem(rh);
+    infoFigure(rh);
 }
 
 void MainWindow::on_HexagonButton_clicked(){
     Hexagon *hg = new Hexagon();
     scene->addItem(hg);
+    infoFigure(hg);
 }
 
+void MainWindow::on_EllipseButton_clicked(){
+    Ellipse *el = new Ellipse();
+    scene->addItem(el);
+    infoFigure(el);
+}

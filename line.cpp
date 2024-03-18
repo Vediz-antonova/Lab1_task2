@@ -14,3 +14,10 @@ void Line::draw(QPainter *painter){
 void Line::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     draw(painter);
 }
+
+void Line::findSquare(){
+}
+
+void Line::findPerimetr(){
+    P = qSqrt((mouseX - centerX) * (mouseX - centerX) + (mouseY - centerY) * (mouseY - centerY));
+}

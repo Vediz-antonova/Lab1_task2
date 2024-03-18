@@ -5,10 +5,13 @@
 
 class Square : public Figure{
 public:
-    explicit Square(Figure *parent = nullptr);
+    Square(Figure *parent = nullptr);
 
     void draw(QPainter *painter) override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    void findSquare() override;
+    void findPerimetr() override;
 };
 
 #endif // SQUARE_H

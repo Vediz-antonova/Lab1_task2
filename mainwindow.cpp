@@ -121,11 +121,16 @@ void MainWindow::on_LineButton_clicked(){
 }
 
 void MainWindow::on_ClearButton_clicked(){
-    scene->clear();
+    QGraphicsScene *scene1 = new QGraphicsScene(this);
+    ui->graphicsView->setScene(scene1);
+    scene = scene1;
 }
 
 void MainWindow::on_BrushButton_clicked(){
-    scene->clear();
+    QGraphicsScene *scene1 = new QGraphicsScene(this);
+    ui->graphicsView->setScene(scene1);
+    scene = scene1;
+
     Brush *br = new Brush();
     scene->addItem(br);
     infoFigure(br);
